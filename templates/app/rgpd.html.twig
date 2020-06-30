@@ -1,0 +1,46 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Vos données
+{% endblock %}
+
+{% block body %}
+
+	<div class="jumbotron">
+		<h1 class="display-5">Politique de confidentialité</h1>
+		<p>
+
+			À La Main Verte la question de la maîtrise de vos données à caractère personnel et du respect de votre vie privée est une question centrale 
+			car elle s’inscrit dans la continuité de nos valeurs, notamment, de confiance et de transparence entre nous.</br>
+			Dans cet objectif nous avons défini cette Politique de confidentialité rédigée dans un langage clair et compréhensible. 
+			En voici les points essentiels :
+			<ul>
+				<li>
+					Nous décrivons les données personnelles que vous nous avez transmises.</br>
+					Nous collectons seulement des données qui sont nécessaires à la réalisation de finalités précises : 
+					veiller au bon fonctionnement du site internet et aux traitements de vos commandes.
+				</li>
+				<li>
+					Nous vous expliquons précisément les actions que nous effectuons sur vos données et pourquoi nous le faisons.</br>
+					Nous ne transférons aucune des données à des tiers, c'est pour cela que nous ne procédons pas au paiement en ligne.
+				</li>
+				<li>
+					Nous clarifions le rôle de l'administrateur dans le traitement de vos données personnelles.</br>
+					Il doit veiller à la protection de vos données.
+				</li>
+				<li>
+					Nous vous expliquons les différents droits dont vous bénéficiez sur vos données et les moyens de les exercer.</br>
+					Nous avons permis la suppression de votre compte et des données qui y sont associées : fonctionnalité accessible depuis votre compte utilisateur.
+				</li>
+				<li>
+					Nous vous désignons la personne en charge de la protection de vos données notre Délégué à la Protection des données.</br>
+					Notre DPO est l'administrateur que vous pouvez contacter à l'adresse :  <a href="{{ path('contact_new')}}">admin@lamainverte.com</a>
+				</li>
+			</ul>
+
+			Merci pour votre confiance !
+
+		</p>
+
+	</div>
+
+{% endblock %}

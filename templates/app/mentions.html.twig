@@ -1,0 +1,42 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Mentions légales
+{% endblock %}
+
+{% block body %}
+
+	<div class="jumbotron">
+		<h1 class="display-5">Mentions légales</h1>
+    
+        <hr class="my-2">
+        <h2>Informations générales</h2>
+            <p>Le présent site web est édité fictivement par un groupe d'apprenants, dans le cadre de la formation WebForce3.</br>
+            Toute ressemblance avec des sites existants serait une pure coïncidence 
+            <small> ...mais aussi une source d'inspiration!</small></p>
+
+        <hr class="my-2">
+        <h2>Coordonnées de la société</h2>
+            <p>
+                <strong>Adresse postale : </strong>La Main Verte - 30 rue Louis Loucheur - 69009 LYON (France)</br>
+                <strong>Téléphone : </strong>0.800.000.000</br>
+                <strong>Adresse électronique : </strong> <a href="{{ path('contact_new')}}">admin@lamainverte.com</a>
+            </p>
+
+        <hr class="my-2">
+        <h2>Hébergement du site</h2>
+            <p>
+                L'hébergement du site n'est pas assuré </br>
+                Il fonctionne uniquement avec un serveur local à titre de démonstration !
+            </p>
+
+
+        <hr class="my-2">
+        <h2>Traitement des données à caractères personnelles</h2>
+            <p>
+                Nous vous invitons à prendre connaissance de notre <a href="{{path('app_rgpd')}}">Politique de confidentialité</a></br>
+                Chaque internaute peut exercer ses droits en écrivant à : <a href="{{ path('contact_new')}}">admin@lamainverte.com</a>
+            </p>
+
+    </div>
+
+{% endblock %}

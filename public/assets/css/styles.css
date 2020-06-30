@@ -1,0 +1,66 @@
+
+#map{
+  width: 80vw;
+  height: 80vh;
+}
+
+.display-4{
+  text-align: center;
+}
+
+a{
+  color: #336699;
+}
+.bg-dark{
+  background-color: darkolivegreen!important;
+}
+a.nav-link{
+  color: whitesmoke!important;
+}
+
+.nav-tabs .nav-link{
+  color: black!important;
+}
+
+.btn{
+  transition: none!important;
+}
+.btn.btn-primary{
+  background-color: darkolivegreen ;
+  border-color: black;
+  color: black;
+  font-weight: bold;
+}
+.btn.btn-danger {
+  background-color: #ff5050;
+  border-color: black;
+  color: black;
+  font-weight: bold;
+}
+
+.company_card_img {
+  border-style: groove;
+  border-width: 1px 0px 1px 1px;
+  padding: 5px 2px 5px 2px;
+}
+.company_card_text {
+  border-style: groove;
+  border-width: 1px 1px 1px 0px;
+  padding: 5px 2px 5px 2px;
+}
+
+/* .carouselCompany{
+  text-align: center;
+}
+
+.d-block{
+  text-align: center!important;
+} */
+
+/* .grid{
+
+}
+
+.grid-item{
+  
+} */

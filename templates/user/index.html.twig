@@ -1,0 +1,66 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}User index{% endblock %}
+
+{% block body %}
+<h1 class="my-5">Liste des utilisateurs</h1>
+
+<form action="{{ path('user_modify_role')}}" method="POST">
+
+    <button class="mb-3" type="submit">Enregistrer les modifications</button>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Email</th>
+                <th>Roles</th>
+                <th>Firstname</th>
+                <th>Lastname</th>
+                <th>Photo</th>
+                <th>Phone</th>
+                
+            </tr>
+        </thead>
+        <tbody>
+            {% for user in users %}
+
+            <tr>
+                <td>{{ user.id }}</td>
+                <td>{{ user.email }}</td>
+                <td>
+                    <select name="roles[{{ user.id }}]" id="">
+                        {% if "ROLE_PRODUCTEUR" in user.roles %}
+                        <option value="ROLE_PRODUCTEUR" selected>Producteur</option>
+                        <option value="ROLE_CLIENT">Client</option>
+                        <option value="ROLE_ADMIN">Administrateur</option>
+                        {% endif %}
+
+                        {% if "ROLE_CLIENT" in user.roles %}
+                        <option value="ROLE_PRODUCTEUR" selected>Producteur</option>
+                        <option value="ROLE_CLIENT" selected>Client</option>
+                        <option value="ROLE_ADMIN">Administrateur</option>
+                        {% endif %}
+
+                        {% if "ROLE_ADMIN" in user.roles %}
+                        <option value="ROLE_PRODUCTEUR" selected>Producteur</option>
+                        <option value="ROLE_CLIENT">Client</option>
+                        <option value="ROLE_ADMIN" selected>Administrateur</option>
+                        {% endif %}
+
+                    </select>
+                </td>
+                <td>{{ user.firstname }}</td>
+                <td>{{ user.lastname }}</td>
+                <td>{{ user.photo }}</td>
+                <td>{{ user.phone }}</td>
+                
+            </tr>
+
+            {% endfor %}
+
+        </tbody>
+    </table>
+</form>
+
+{% endblock %}

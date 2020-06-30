@@ -1,0 +1,13 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Commande{% endblock %}
+
+{% block body %}
+
+<div class="jumbotron">
+<h3> Merci pour votre commande !</h3>
+<p><strong>Un mail vous sera envoyé par le producteur dès que votre commande sera disponible en point relais.</strong></p>
+<hr class="my-3">
+<a href="{{ path('app_index') }}">Retour accueil</a>
+
+{% endblock %}

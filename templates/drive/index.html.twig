@@ -1,0 +1,36 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Drive index{% endblock %}
+
+{% block body %}
+    <h1 class="my-5" >Ajouter un point relais</h1>
+
+    {{ include('drive/_form.html.twig') }}
+
+    <h1 class="my-5" >Liste des points relais</h1>
+
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Name</th>
+                <th>Addresse</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for drive in drives %}
+            <tr>
+                <td>{{ drive.id }}</td>
+                <td>{{ drive.name }}</td>
+                <td>{{ drive.address.line }} - <strong>{{ drive.address.zipcode }} {{ drive.address.city }}</strong></td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="3">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+{% endblock %}

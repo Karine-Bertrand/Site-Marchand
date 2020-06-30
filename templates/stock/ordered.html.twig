@@ -1,0 +1,67 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Stock disponible
+{% endblock %}
+
+{% block body %}
+	<h1>résultat du producteur choisi</h1>
+
+{% if items | length >0 %}
+    <div id="panier"><i class="fa fa-shopping-basket"></i>
+        <span class="badge badge-sm badge-success">{{ items | length }} produits</span>
+        <span class="badge badge-sm badge-warning">Total {{ total }} €</span> 
+        {% if total > 0 %}
+            <a class="btn btn-sm btn-secondary" href="{{ path('cart_index') }}">Voir le détail</a>
+            <a class="btn btn-sm btn-secondary" href="#">Passer la commande</a>
+        {% endif %}
+    </div>
+{% endif %}
+
+
+
+	<table class="table">
+        <tr>
+            <th>Nom</th>
+            <th>Quantité disponible</th>
+            <th>Unité</th>
+            <th>Prix</th>
+            <th>ajouter</th>
+            <th>retirer</th>
+        </tr>
+
+        <tbody>
+            {% for stock in stocks %}
+                <tr>
+                    {% if stock.description is null %}
+                        <td>{{ stock.product.name}}</td>
+                    {% else %}
+                        <td>{{ stock.description }}</td>
+                    {% endif %}
+                    {% if stock.quantity == 0 %}
+                        <td><i>épuisé</i></td>
+                    {% else %}                        
+                        <td>{{ stock.quantity }}</td>
+                    {% endif %}
+                    <td>{{ stock.conditioning }}</td>
+                    <td>{{ stock.price }} €</td>
+                    {% if stock.quantity == 0 %}
+                    <td> </td>
+                    {% else %}
+                    <td>
+                        <a href="{{ path('cart_add', {'id': stock.id}) }}"><i class="fa fa-cart-plus"></i></a>
+                    </td>
+                    <td>
+                        <a href="{{ path('cart_remove', {'id': stock.id}) }}"><i class="fa fa-trash-o"></i></a>
+                    </td>
+                    {% endif %}
+                </tr>
+            {% else %}
+                <tr>
+                    <td colspan="6">aucun stock disponible</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+{% endblock %}
+

@@ -1,0 +1,52 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Panier{% endblock %}
+
+{% block body %}
+
+<h1>Votre panier :</h1>
+
+	{% if items | length >0 %}
+		<table class="table">
+			<thead>
+				<tr>
+					<th>Produit</th>
+					<th>Quantité</th>
+					<th>Conditionnement</th>
+					<th>Prix</th>
+					<th>Total</th>
+					<th>actions</th>
+				</tr>
+			</thead>
+			<tbody>
+				{% for item in items %}
+					<tr>
+						<td>{{ item.product.name}}</td>
+						<td>{{ item.quantity }}</td>
+						<td>{{ item.stock.conditioning }}</td>
+						<td>{{ item.stock.price }} €</td>
+						<td>{{ item.quantity * item.stock.price }} €</td>
+						<td>
+							<a id="suppStockOffCart" href="{{ path("cart_remove", {'id': item.stock.id}) }}" class="btn">
+								<i class="fa fa-trash"></i>
+							</a>
+							<a class="btn btn-sm btn-danger" href="{{ path("company_show", {'company': item.stock.company.id}) }}">Continuer mes achats</a>
+						</td>
+					</tr>
+				{% endfor %}
+			</tbody>
+			<tfoot>
+				<tr>
+					<td colspan="4" class="text-right">Total : </td>
+					<td>{{ total }} €</td>
+					<td><a id="confirmOrdered" href="{{ path("createCommande") }}" class="btn btn-sm btn-primary">Passer la commande</a></td>
+				</tr>
+			</tfoot>
+		</table>
+	{% else %}
+		<p>
+			Panier vide !
+		</p>
+	{% endif %}
+
+{% endblock %}

@@ -1,0 +1,36 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}User index{% endblock %}
+
+{% block body %}
+
+<div class="grid my-5">
+
+    <div class="grid-item my-5">
+        <h5 class="card-title">Produits</h5>
+        <a href="{{ path('product_index')}}" class="btn btn-primary">Voir la liste</a>
+    </div>
+
+    <div class="grid-item my-5">
+        <h5 class="card-title">Utilisateurs</h5>
+        <a href="{{ path('user_index')}}" class="btn btn-primary">Voir la liste</a>
+    </div>
+
+    <div class="grid-item my-5">
+        <h5 class="card-title">Points relais</h5>
+        <a href="{{ path('drive_index')}}" class="btn btn-primary">Voir la liste</a>
+    </div>
+
+    <div class="grid-item my-5">
+        <h5 class="card-title">Avis</h5>
+        <a href="{{ path('review_index')}}" class="btn btn-primary">Voir la liste</a>
+    </div>
+
+    <div class="grid-item my-5">
+        <h5 class="card-title">Contact</h5>
+        <a href="{{ path('contact_index')}}" class="btn btn-primary">Voir la liste</a>
+    </div>
+
+</div>
+
+{% endblock %}

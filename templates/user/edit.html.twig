@@ -1,0 +1,44 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Editer mon profil{% endblock %}
+
+{% block body %}
+    <h1>Editer mon profil</h1>
+
+    {{ include('user/_form.html.twig', {'button_label': 'Mettre à jour'}) }}
+
+    <a class="btn btn-sm btn-secondary my-2" href="{{ path('profil_index') }}">Retour au profil</a>
+
+{% endblock %}
+
+{% block javascripts %}
+	{{ parent() }}
+	<script src="https://cdn.jsdelivr.net/npm/places.js@1.19.0"></script>
+
+	<script type="text/javascript">
+
+		jQuery(document).ready(() => { // console.log('ALGOLIA_APP_ID');
+
+                (function () {
+                var placesAutocomplete = places({
+                appId: 'plKNTMHFAPTI',
+                apiKey: '9ce06e385adac77792bd67ae26d69adb',
+                container: document.querySelector("#user_address_line"),
+                templates: {
+                value: function (suggestion) {
+                return suggestion.name;
+                }
+                }
+                }).configure({type: 'address'});
+                placesAutocomplete.on('change', function resultSelected(e) {
+                document.querySelector('#user_address_city').value = e.suggestion.city || '';
+                document.querySelector('#user_address_zipcode').value = e.suggestion.postcode || '';
+                document.querySelector('#user_address_latitude').value = e.suggestion.latlng.lat;
+                document.querySelector('#user_address_longitude').value = e.suggestion.latlng.lng;
+                });
+                })();
+
+                });
+	</script>
+
+{% endblock %}

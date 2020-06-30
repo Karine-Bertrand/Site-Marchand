@@ -1,0 +1,244 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{% endblock %}
+
+{% block body %}
+
+{# page "Mon Compte", si client #}
+{% if is_granted ("ROLE_CLIENT") %}
+
+    <h2>Bienvenue sur votre Espace Client 
+    </h2>
+
+    <div class="my-4">
+        <img src="{{ asset('assets/img/user_photo/' ~ app.user.photo ) }}" height="180px" alt="Photo Utilisateur"></img>
+    </div>
+
+    <hr class="my-2">
+    <h5>Mes informations  
+        <a class="btn btn-sm btn-primary" href="{{ path('profil_edit', {user:app.user.id}) }}">Modifier</a>
+    </h5>
+
+    <table class="table">
+        <thead class="table bg-secondary">
+            <tr>
+                <th>Nom</th>
+                <th>Prénom</th>
+                <th>Email</th>
+                <th>Adresse</th>
+                <th>Complément d'adresse</th>
+                <th>Code postal</th>
+                <th>Ville</th>
+                <th>Téléphone</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td><strong>{{app.user.lastname}}</strong></td>
+                <td><strong>{{app.user.firstname}}</strong></td>
+                <td>{{app.user.email}}</td>
+                <td>{{app.user.address.line}}</td>
+                <td>{{app.user.address.line2}}</td>
+                <td>{{app.user.address.zipcode}}</td>
+                <td>{{app.user.address.city}}</td>
+                <td>{{app.user.phone}}</td>
+            </tr>
+        </tbody>
+    </table>
+
+
+    <hr class="my-2">
+        <h5>Mes dernières commandes </h5>
+
+        <table class="table">
+            <thead class="table bg-secondary">
+                <tr>
+                    <th>N°</th>
+                    <th>Date</th>
+                    <th>Prix total</th>
+                    <th>Détails</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for ordered in ordereds %}
+                <tr>
+                    <td><strong>#{{ordered.id}}</strong></td>
+                    <td>{{ordered.createdAt|date("d/m/Y")}}</td>
+                    <td>{{ordered.totalPrice}} €</td>
+                    <td> <a href="{{ path('ordered_show', {id : ordered.id})}}"><i class="fa fa-file-archive-o"></i></a></td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+
+        <hr class="my-2">
+        <button class="btn btn-sm btn-danger my-2">Supprimer mon compte</button>
+
+{% endif %}
+
+{# page "Ma ferme" , si Producteur #}
+{% if is_granted ("ROLE_PRODUCTEUR") %} 
+
+        <h2>
+        Bienvenue sur votre Espace Producteur 
+        </h2>
+
+    <div class="container">
+        <div class="row">
+            <div class="col-3">
+            <a class="btn btn-sm btn-secondary" href="{{ path('review_company')}}">Consulter les avis</a>
+            </div>
+            <div class="col-9">
+            <img src="{{ asset('assets/img/user_photo/' ~ app.user.photo ) }}" height="180px" alt="Photo Utilisateur"></img>
+            </div>
+        </div>
+    </div>
+
+    <hr class="my-2">
+        <h3>Mes informations 
+            <a class="btn btn-sm btn-primary" href="{{ path('profil_edit', {user:app.user.id}) }}">Modifier</a>
+        </h3>
+
+        <table class="table">
+            <thead class="table bg-secondary">
+                <tr>
+                    <th>Nom de la Société</th>
+                    <th>N° SIRET</th>
+                    <th>Nom</th>
+                    <th>Prénom</th>
+                    <th>Email</th>
+                    <th>Adresse</th>
+                    <th>Complément d'adresse</th>
+                    <th>Code Postal</th>
+                    <th>Ville</th>
+                    <th>Telephone</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>{{app.user.company.name}}</td>
+                    <td>{{app.user.company.siret}}</td>
+                    <td>{{app.user.lastname}}</td>
+                    <td>{{app.user.firstname}}</td>
+                    <td>{{app.user.email}}</td>
+                    <td>{{app.user.address.line}}</td>
+                    <td>{{app.user.address.line2}}</td>
+                    <td>{{app.user.address.zipcode}}</td>
+                    <td>{{app.user.address.city}}</td>
+                    <td>{{app.user.phone}}</td>
+                </tr>
+            </tbody>
+        </table>
+
+
+    <hr class="my-2">
+        <h3>
+        Mon stock de produits 
+            {% if app.user.company.validated %}
+            <a href="{{ path('stock_new')}}"><button class="btn btn-sm btn-primary">Ajouter</button></a>
+            {% else %}
+            <a href="{{ path('stock_new')}}"><button class="btn btn-sm btn-primary" disabled>Ajouter</button></a>
+            {% endif %}
+        </h3>
+
+        <table class="table">
+            <thead class="table bg-secondary">
+                <tr>
+                    <th>Nom du Produit</th>
+                    <th>Catégorie</th>
+                    <th>Quantité</th>
+                    <th>Prix Unitaire</th>
+                    <th>Modifier</th>
+                    <th>Supprimer</th>
+                </tr>
+            </thead> 
+            <tbody>
+            {% for stock in stocks %}
+                <tr>
+                    <td>{{stock.product.name}}</td>
+                    <td>{{stock.product.category.name}}</td>
+                    <td>{{stock.quantity}} {{stock.conditioning}}</td>
+                    <td>{{stock.price}}€</td>
+                    <td><a class="btn btn-sm" href="{{ path('stock_edit', {id: stock.id}) }}"><i class="fa fa-pencil"></i></a></td>
+                    <td>{{ include('stock/_delete_form.html.twig') }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+
+
+    <hr class="my-2">
+        <h3>Mes points Relais 
+            {% if app.user.company.validated %}
+            <a href="{{ path('drive_select')}}"><button class="btn btn-sm btn-primary">Ajouter</button></a>
+            {% else %}
+            <a href="{{ path('drive_select')}}"><button class="btn btn-sm btn-primary" disabled>Ajouter</button></a>
+            {% endif %}
+        </h3>
+
+    <table class="table">
+        <thead class="table bg-secondary">
+            <tr>
+                <th>Nom du Point Relais</th>
+                <th>Adresse</th>
+                <th>Complément d'adresse</th>
+                <th>Code Postal</th>
+                <th>Ville</th>
+                <th>Modifier</th>
+                <th>Supprimer</th>
+            </tr>
+        </thead> 
+        <tbody>
+            {% for drive in drives %}
+            <tr>
+                <td>{{ drive.name}}</td>
+                <td>{{ drive.address.line }}</td>
+                <td>{{ drive.address.line2 }}</td>
+                <td>{{ drive.address.zipcode }}</td>
+                <td>{{ drive.address.city }}</td>
+                <td><a class="btn btn-sm" href="{{ path('drive_edit', {id: drive.id})  }}"><i class="fa fa-pencil"></i></a></td>
+                <td>{{ include('drive/_delete_form.html.twig') }}</td>
+            </tr>
+            {% endfor %} 
+        </tbody>
+    </table>
+
+    <hr class="m-2">
+    {{ include('user/_delete_form.html.twig') }}
+
+{% endif %}
+
+{% endblock %}
+
+{% block javascripts %}
+	{{ parent() }}
+	<script src="https://cdn.jsdelivr.net/npm/places.js@1.19.0"></script>
+
+	<script type="text/javascript">
+
+		jQuery(document).ready(() => { // console.log('ALGOLIA_APP_ID');
+
+            (function () {
+            var placesAutocomplete = places({
+            appId: 'plKNTMHFAPTI',
+            apiKey: '9ce06e385adac77792bd67ae26d69adb',
+            container: document.querySelector("#drive_address_line"),
+            templates: {
+            value: function (suggestion) {
+            return suggestion.name;
+            }
+            }
+            }).configure({type: 'address'});
+            placesAutocomplete.on('change', function resultSelected(e) {
+            document.querySelector('#drive_address_city').value = e.suggestion.city || '';
+            document.querySelector('#drive_address_zipcode').value = e.suggestion.postcode || '';
+            document.querySelector('#drive_address_latitude').value = e.suggestion.latlng.lat;
+            document.querySelector('#drive_address_longitude').value = e.suggestion.latlng.lng;
+            });
+            })();
+
+        });
+	</script>
+
+{% endblock %}
+

@@ -1,0 +1,69 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Création compte{% endblock %}
+
+{% block body %}
+    {% for flashError in app.flashes('verify_email_error') %}
+        <div class="alert alert-danger" role="alert">{{ flashError }}</div>
+    {% endfor %}
+    <h1 class="my-5">Créez votre compte</h1>
+    <div class="form-group">
+       <div class="col-8"> 
+            {{ form_start(registrationForm) }}
+                {{ form_row(registrationForm.firstname) }}
+                {{ form_row(registrationForm.lastname) }}
+
+                {{ form_row(registrationForm.phone) }}
+                {{ form_row(registrationForm.email) }}
+                {{ form_row(registrationForm.plainPassword, {
+                    label: 'Mot de Passe'
+                }) }}
+                {{ form_row(registrationForm.photo) }}
+                {{ form_row(registrationForm.address) }}
+
+                
+                <br/>
+                {{ form_row(registrationForm.agreeTerms) }}
+                <button type="submit" class="btn btn-primary">S'enregistrer</button>
+
+            {{ form_end(registrationForm) }}
+        </div>
+    </div>
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script src="https://cdn.jsdelivr.net/npm/places.js@1.19.0"></script>
+
+    <script type="text/javascript">
+
+        jQuery(document).ready(() => {
+
+        // console.log('ALGOLIA_APP_ID');
+
+            (function() {
+                var placesAutocomplete = places({
+                    appId: 'plKNTMHFAPTI',
+                    apiKey: '9ce06e385adac77792bd67ae26d69adb',
+                    container: document.querySelector("#registration_form_address_line"),
+                    templates: {
+                    value: function(suggestion) {
+                        return suggestion.name;
+                    }
+                    }
+                }).configure({
+                    type: 'address'
+                });
+                placesAutocomplete.on('change', function resultSelected(e) {
+                   document.querySelector('#registration_form_address_city').value = e.suggestion.city || '';
+                    document.querySelector('#registration_form_address_zipcode').value = e.suggestion.postcode || '';
+                document.querySelector('#registration_form_address_latitude').value = e.suggestion.latlng.lat;
+                document.querySelector('#registration_form_address_longitude').value = e.suggestion.latlng.lng;
+                });
+            })();
+
+        });
+
+    </script>
+
+{% endblock %}

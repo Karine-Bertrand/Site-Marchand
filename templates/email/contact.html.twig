@@ -1,0 +1,21 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Récapitulatif demande de renseignements{% endblock %}
+
+{% block body %}
+
+	<div class="jumbotron">
+		<h1 class="display-4">Récapitulatif de votre demande</h1>
+
+		<hr class="my-4">
+		<p class="lead">Votre message nous à bien été transmis.
+        <br> Nous vous recontacterons dans les plus brefs délais. Voici un récapitulatif de votre demande de renseignements.</p>
+        
+        <br>
+{% extends "show.html.twig" %}
+		<p class="lead">
+			<a class="btn btn-primary btn-lg" href="{{ path('contact_new') }}" role="button"> <- Retour au formulaire</a>
+		</p>
+	</div>
+
+{% endblock %}

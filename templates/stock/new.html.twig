@@ -1,0 +1,12 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Nouveau Stock{% endblock %}
+
+{% block body %}
+    <h1 class="my-5">Créez un nouveau stock</h1>
+
+    {{ include('stock/_form.html.twig') }}
+
+    <div class="my-5"><a href="{{ path('profil_index') }}">Retour</a></div>
+    
+{% endblock %}

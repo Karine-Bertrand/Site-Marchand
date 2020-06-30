@@ -1,0 +1,11 @@
+<h1>Bonjour. Merci de votre inscription sur La Main Verte ! Merci de confirmer votre inscription !</h1>
+<img src = "{{asset('assets/img/Logo ferme 2.svg')}}" alt="logo"></img>
+<p>
+    Confirmez votre inscription en cliquant sur le lien suivant : <br><br>
+    <a href="{{ signedUrl|raw }}">Confirm my Email</a>.
+    This link will expire in {{ expiresAt|date('g') }} hour(s).
+</p>
+
+<p>
+    Cheers!
+</p>

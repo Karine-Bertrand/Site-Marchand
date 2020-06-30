@@ -1,0 +1,45 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Nouveau Point Relais{% endblock %}
+
+{% block body %}
+    <h1 class="my-5">Ajouter un point relais</h1>
+
+    {{ include('drive/_form.html.twig') }}
+
+    <div class="my-5"><a href="{{ path('profil_index') }}">Retour</a></div>
+
+{% endblock %}
+
+{% block javascripts %}
+	{{ parent() }}
+	<script src="https://cdn.jsdelivr.net/npm/places.js@1.19.0"></script>
+
+	<script type="text/javascript">
+
+		jQuery(document).ready(() => { // console.log('ALGOLIA_APP_ID');
+
+            (function () {
+            var placesAutocomplete = places({
+            appId: 'plKNTMHFAPTI',
+            apiKey: '9ce06e385adac77792bd67ae26d69adb',
+            container: document.querySelector("#drive_address_line"),
+            templates: {
+            value: function (suggestion) {
+            return suggestion.name;
+            }
+            }
+            }).configure({type: 'address'});
+            placesAutocomplete.on('change', function resultSelected(e) {
+            document.querySelector('#drive_address_city').value = e.suggestion.city || '';
+            document.querySelector('#drive_address_zipcode').value = e.suggestion.postcode || '';
+            document.querySelector('#drive_address_latitude').value = e.suggestion.latlng.lat;
+            document.querySelector('#drive_address_longitude').value = e.suggestion.latlng.lng;
+            });
+            })();
+
+        });
+	</script>
+
+{% endblock %}
+

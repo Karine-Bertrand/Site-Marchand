@@ -1,0 +1,35 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Detail index{% endblock %}
+
+{% block body %}
+    <h1>Detail index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Quantity</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for detail in details %}
+            <tr>
+                <td>{{ detail.id }}</td>
+                <td>{{ detail.quantity }}</td>
+                <td>
+                    <a href="{{ path('detail_show', {'id': detail.id}) }}">show</a>
+                    <a href="{{ path('detail_edit', {'id': detail.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="3">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('detail_new') }}">Create new</a>
+{% endblock %}

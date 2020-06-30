@@ -1,0 +1,74 @@
+<nav class="navbar navbar-expand-sm navbar-dark bg-dark">
+    <a class="navbar-brand" href="{{ path('app_index')}}">
+        <img src="{{ asset('assets/img/Logo ferme 2.svg') }}" alt="logo" height="180px" data-toggle="modal"></img>
+    </a>
+
+    <h3 class="ml-0 mr-5 pl-0">LA MAIN VERTE</h3>
+    <button class="navbar-toggler d-lg-none" type="button" data-toggle="collapse" data-target="#collapsibleNavId"
+        aria-controls="collapsibleNavId" aria-expanded="false" aria-label="Toggle navigation"><span
+            class="navbar-toggler-icon"></button>
+
+    <div class="collapse navbar-collapse" id="collapsibleNavId">
+        <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+
+            <li class="nav-item">
+                <a class="nav-link" href="{{ path('app_index')}}">Accueil</a>
+            </li>
+
+            {% if app.user %}
+
+                <li class="nav-item">
+                    <a class="nav-item nav-link" href="{{ path('profil_index') }}">Bienvenue {{app.user.firstname}} {{app.user.lastname}} </a>
+                </li>
+
+            {% if is_granted ("ROLE_CLIENT") %}
+            <li class="nav-item">
+                <a class="nav-item nav-link" href="{{ path('profil_index') }}">Mon compte</a>
+            </li>
+            {% endif %}
+
+            {% if is_granted ("ROLE_PRODUCTEUR") %}
+            <li class="nav-item">
+                <a class="nav-item nav-link" href="{{ path('profil_index') }}">Ma ferme</a>
+            </li>
+            {% endif %}
+
+            {% if is_granted ("ROLE_ADMIN") %}
+            <li class="nav-item">
+                <a class="nav-link" href="{{ path('user_gestion') }}">Gestion des données</a>
+            </li>
+            {# {% else %}
+                    <li class="nav-item">
+                        <a class="nav-item nav-link" href="#">Supprimer mon compte</a>
+                    </li> #}
+            {% endif %}
+
+                {% if is_granted("ROLE_ADMIN") == false %}
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ path('contact_new') }}">Nous contacter</a>
+                    </li>
+                {% endif %}
+
+            <li class="nav-item">
+                <a class="nav-item nav-link" href="{{ path('app_logout') }}">Déconnexion</a>
+            </li>
+
+            {% else %}
+
+                <li class="nav-item">
+                    <a class="nav-item nav-link" href="{{ path('app_login') }}">Se connecter</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-item nav-link" href="{{ path('app_register') }}">Créer un compte</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ path('contact_new') }}">Nous contacter</a>
+                </li>
+
+            {% endif %}
+
+        </ul>
+
+    </div>
+
+</nav>

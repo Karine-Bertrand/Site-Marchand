@@ -1,0 +1,23 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Résultats de recherche{% endblock %}
+
+{% block body %}
+
+<h1 class="mt-4">Votre recherche a généré {{users|length}} résultat(s)</h1>
+
+{% for user in users %}
+
+<div class="card" style="width: 18rem;">
+    <img src="..." class="card-img-top" alt="...">
+    <div class="card-body">
+        <h5 class="card-title">{{user.company.name}}</h5>
+        <h6>{{user.address.city}}</h6>
+        <p> {{user.company.description}}</p>
+        <a href="{{ path('company_show', {company: user.company.id}) }}" class="btn btn-primary">Go somewhere</a>
+    </div>
+</div>
+
+{% endfor %}
+
+{% endblock %}

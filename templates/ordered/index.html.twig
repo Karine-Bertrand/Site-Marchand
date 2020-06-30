@@ -1,0 +1,39 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Ordered index{% endblock %}
+
+{% block body %}
+    <h1>Ordered index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Created_at</th>
+                <th>Total_price</th>
+                <th>Validated</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for ordered in ordereds %}
+            <tr>
+                <td>{{ ordered.id }}</td>
+                <td>{{ ordered.createdAt ? ordered.createdAt|date('Y-m-d H:i:s') : '' }}</td>
+                <td>{{ ordered.totalPrice }}</td>
+                <td>{{ ordered.validated ? 'Yes' : 'No' }}</td>
+                <td>
+                    <a href="{{ path('ordered_show', {'id': ordered.id}) }}">show</a>
+                    <a href="{{ path('ordered_edit', {'id': ordered.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="5">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('ordered_new') }}">Create new</a>
+{% endblock %}

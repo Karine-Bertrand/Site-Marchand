@@ -1,0 +1,121 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Producteur{% endblock %}
+
+{% block body %}
+
+{# Affichage infos producteur #}
+
+<h1 class="my-4">{{company.name}}</h1>
+
+<div class="container">
+    <div class="row">
+        <div class="col-8">
+            <img src="{{ asset('assets/img/etalage primeur.jpg') }}" class="card-img-top" style="height: 80px; width: 100px;"
+            <hr>
+            <p class="card-text">{{company.description}}</p>
+        </div>
+        <div class="col-4">
+            {% if company.averageRating is not null %}
+            <h5>Ce producteur est noté {{company.averageRating|round(1, 'floor')}}/10</h5>
+            {% else %}
+            <h5>Soyez le premier à donner votre avis</h5>
+            {% endif %}
+        </div>
+    </div>
+</div>
+
+<hr class="my-2">
+<h4>Liste des produits</h4>
+
+<table class="table">
+    <thead class="table bg-secondary">
+        <tr>
+            <th>Produits</th>
+            <th>Quantités dispos</th>
+            <th>Prix unitaire</th>
+            <th colspan="2">Ajouter au panier</th>
+            <th>Retirer du panier</th>
+        </tr>
+    </thead>
+    <tbody>
+            {% for cart in carts %}
+                <tr>
+                    {# {% if stock.description == "" %} #}
+                        <td>{{ cart.stock.product.name}}</td>
+                    {# {% else %} #}
+                        {# <td>{{ stock.description }}</td> #}
+                    {# {% endif %} #}
+                    {% if cart.stock.quantity == 0 %}
+                        <td><i>épuisé</i></td>
+                    {% else %}                        
+                        <td>{{ cart.stock.quantity }} {{ cart.stock.conditioning }}</td>
+                    {% endif %}
+                    <td>{{ cart.stock.price }} €</td>
+                    {% if cart.stock.quantity == 0 %}
+                    <td colspan="2"> </td>
+                    {% else %}
+                    <td>
+                        <a href="{{ path('cart_add', {'id': cart.stock.id}) }}"><i class="fa fa-cart-plus" style='font-size:24px'></i></a>
+                    </td>
+                    <td>
+                       {% if cart.quantity > 0 %} {{cart.quantity}} {% endif %}
+                    </td>
+                    <td>
+                        <a href="{{ path('cart_remove', {'id': cart.stock.id}) }}"><i class="fa fa-trash-o" style='font-size:24px'></i></a>
+                    </td>
+                    {% endif %}
+                </tr>
+            {% else %}
+                <tr>
+                    <td colspan="5">aucun produit disponible</td>
+                </tr>
+            {% endfor %}
+    </tbody>
+</table>
+
+{# Affichage carte Google avec pointeur #}
+
+{# <div class="card mb-3">
+    <div class="card-body">
+        <br>
+        <br>
+        <h5>Google Map</h5>
+        <br>
+        <br>
+    </div>
+</div> #}
+
+
+
+
+{# Affichage commentaires producteur #}
+<hr class="my-2">
+<h4>Liste des avis</h4>
+
+<table class="table">
+    <thead class="table bg-secondary">
+        <tr>
+            <th scope="col">Notes</th>
+            <th scope="col">Commentaires</th>
+        </tr>
+    </thead>
+    <tbody>
+        
+        {% for review in reviews %}
+
+        <tr>
+            <th scope="row">{{review.rating}}</th>
+            <td>{{review.comment}}</td>
+        </tr>
+
+        {% endfor %}
+
+    </tbody>
+</table>
+{{ include('review/_form.html.twig') }}
+
+<hr class="my-2">
+<a class="btn btn-sm btn-secondary my-2" href="{{ path('company_index') }}">Retour liste</a>
+
+{% endblock %}

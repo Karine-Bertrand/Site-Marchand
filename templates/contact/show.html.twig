@@ -1,0 +1,33 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Récapitulatif demande{% endblock %}
+
+{% block body %}
+
+    <table class="table">
+		<tbody>
+			<tr>
+				<th>Id</th>
+				<td>{{ contact.id }}</td>
+			</tr>
+			<tr>
+				<th>Prenom</th>
+				<td>{{ contact.firstname }}</td>
+			</tr>
+			<tr>
+				<th>Nom</th>
+				<td>{{ contact.lastname }}</td>
+			</tr>
+			<tr>
+				<th>Email</th>
+				<td>{{ contact.email }}</td>
+			</tr>
+			<tr>
+				<th>Message</th>
+				<td>{{ contact.content }}</td>
+			</tr>
+
+		</tbody>
+	</table>
+
+{% endblock %}
